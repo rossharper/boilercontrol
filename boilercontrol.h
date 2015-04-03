@@ -14,7 +14,7 @@ private:
     void enableTransmit();
     void sendPackets(const int packets[][nBitsPerPacket]);
     void sendPacket(const int packet[]);
-    void sendRxStart();
+    void sendTxStart();
     void send1();
     void send0();
     void sendPulse(const unsigned int nPulselength);

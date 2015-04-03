@@ -3,13 +3,13 @@
 static const unsigned int nLongPulseLength = 953;
 static const unsigned int nShortPulseLength = 365;
 static const unsigned int nPauseLength = 365;
-static const unsigned int nRxDelayLength = 4530;
-static const unsigned int nPreSendDelay = 1000000;//27810;
-static const unsigned int nPostSendDelay = nPreSendDelay;
+static const unsigned int nTxDelayLength = 4530;
+static const unsigned int nPreTxDelay = 27810;
+static const unsigned int nPostTxDelay = nPreTxDelay;
 
 static const int ON_PACKETS[][nBitsPerPacket] = {{1,0,0,0,0,1,0,0,0,1,0,1,1,1,1,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1}, {1,1,1,1,1,0,1,1,1,0,1,0,0,0,0,1,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,0}};
 static const int OFF_PACKETS[][nBitsPerPacket] = {{1,0,0,0,0,1,0,0,0,1,0,1,1,1,1,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0}, {1,1,1,1,1,0,1,1,1,0,1,0,0,0,0,1,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1}};
-static const int DELAY[] = {27810, 18069, 17512, 4721, 22327, 18916, 25870, nPostSendDelay};
+static const int DELAY[] = {27810, 18069, 17512, 4721, 22327, 18916, 25870, nPostTxDelay};
 
 BoilerControl::BoilerControl(int nTransmitterPin) {
     this->nTransmitterPin = nTransmitterPin;
@@ -29,7 +29,7 @@ void BoilerControl::sendPackets(const int packets[][nBitsPerPacket]) {
     int nPacket = 0;
 
     digitalWrite(this->nTransmitterPin, HIGH);
-    delayMicroseconds(nPreSendDelay);
+    delayMicroseconds(nPreTxDelay);
     
     for(int nRepeats = 0; nRepeats < 4; nRepeats++) {
         this->sendPacket(packets[0]);
@@ -41,11 +41,11 @@ void BoilerControl::sendPackets(const int packets[][nBitsPerPacket]) {
     }    
 
     digitalWrite(this->nTransmitterPin, HIGH);
-    delayMicroseconds(nPreSendDelay);
+    delayMicroseconds(nPostTxDelay);
 }
 
 void BoilerControl::sendPacket(const int packet[]) {
-    this->sendRxStart();
+    this->sendTxStart();
 
     for(int bit = 0; bit < nBitsPerPacket; bit++) {
         if(packet[bit] == 1) {
@@ -59,9 +59,9 @@ void BoilerControl::sendPacket(const int packet[]) {
     digitalWrite(this->nTransmitterPin, HIGH);
 }
 
-void BoilerControl::sendRxStart() {
+void BoilerControl::sendTxStart() {
     digitalWrite(this->nTransmitterPin, LOW);
-    delayMicroseconds(nRxDelayLength);
+    delayMicroseconds(nTxDelayLength);
 }
 
 void BoilerControl::enableTransmit() {
