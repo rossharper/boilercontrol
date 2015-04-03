@@ -28,7 +28,7 @@ void BoilerControl::sendOffSignal() {
 void BoilerControl::sendPackets(const int packets[][nBitsPerPacket]) {
     int nPacket = 0;
 
-    digitalWrite(this->nTransmitterPin, HIGH);
+    digitalWrite(this->nTransmitterPin, LOW);
     delayMicroseconds(nPreTxDelay);
     
     for(int nRepeats = 0; nRepeats < 4; nRepeats++) {
@@ -40,7 +40,7 @@ void BoilerControl::sendPackets(const int packets[][nBitsPerPacket]) {
         nPacket++;
     }    
 
-    digitalWrite(this->nTransmitterPin, HIGH);
+    digitalWrite(this->nTransmitterPin, LOW);
     delayMicroseconds(nPostTxDelay);
 }
 
@@ -56,11 +56,11 @@ void BoilerControl::sendPacket(const int packet[]) {
         }
     }
 
-    digitalWrite(this->nTransmitterPin, HIGH);
+    digitalWrite(this->nTransmitterPin, LOW);
 }
 
 void BoilerControl::sendTxStart() {
-    digitalWrite(this->nTransmitterPin, LOW);
+    digitalWrite(this->nTransmitterPin, HIGH);
     delayMicroseconds(nTxDelayLength);
 }
 
@@ -77,8 +77,8 @@ void BoilerControl::send0() {
 }
 
 void BoilerControl::sendPulse(const unsigned int nPulseLength) {
-    digitalWrite(this->nTransmitterPin, HIGH);
-    delayMicroseconds(nPulseLength);
     digitalWrite(this->nTransmitterPin, LOW);
+    delayMicroseconds(nPulseLength);
+    digitalWrite(this->nTransmitterPin, HIGH);
     delayMicroseconds(nPauseLength);
 }
