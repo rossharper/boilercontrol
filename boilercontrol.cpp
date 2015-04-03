@@ -7,6 +7,8 @@ static const unsigned int nTxDelayLength = 4530;
 static const unsigned int nPreTxDelay = 27810;
 static const unsigned int nPostTxDelay = nPreTxDelay;
 
+static const unsigned int nNonRealtimeOffset = 90;
+
 static const int ON_PACKETS[][nBitsPerPacket] = {{1,0,0,0,0,1,0,0,0,1,0,1,1,1,1,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1}, {1,1,1,1,1,0,1,1,1,0,1,0,0,0,0,1,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,0}};
 static const int OFF_PACKETS[][nBitsPerPacket] = {{1,0,0,0,0,1,0,0,0,1,0,1,1,1,1,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0}, {1,1,1,1,1,0,1,1,1,0,1,0,0,0,0,1,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1}};
 static const int DELAY[] = {27810, 18069, 17512, 4721, 22327, 18916, 25870, nPostTxDelay};
@@ -29,19 +31,19 @@ void BoilerControl::sendPackets(const int packets[][nBitsPerPacket]) {
     int nPacket = 0;
 
     digitalWrite(this->nTransmitterPin, LOW);
-    delayMicroseconds(nPreTxDelay);
+    delayMicroseconds(nPreTxDelay - nNonRealtimeOffset);
     
     for(int nRepeats = 0; nRepeats < 4; nRepeats++) {
         this->sendPacket(packets[0]);
-        delayMicroseconds(DELAY[nPacket]);
+        delayMicroseconds(DELAY[nPacket] - nNonRealtimeOffset);
         nPacket++;
         this->sendPacket(packets[1]);
-        delayMicroseconds(DELAY[nPacket]);
+        delayMicroseconds(DELAY[nPacket] - nNonRealtimeOffset);
         nPacket++;
     }    
 
     digitalWrite(this->nTransmitterPin, LOW);
-    delayMicroseconds(nPostTxDelay);
+    delayMicroseconds(nPostTxDelay - nNonRealtimeOffset);
 }
 
 void BoilerControl::sendPacket(const int packet[]) {
@@ -78,7 +80,7 @@ void BoilerControl::send0() {
 
 void BoilerControl::sendPulse(const unsigned int nPulseLength) {
     digitalWrite(this->nTransmitterPin, LOW);
-    delayMicroseconds(nPulseLength);
+    delayMicroseconds(nPulseLength - nNonRealtimeOffset);
     digitalWrite(this->nTransmitterPin, HIGH);
-    delayMicroseconds(nPauseLength);
+    delayMicroseconds(nPauseLength - nNonRealtimeOffset);
 }
