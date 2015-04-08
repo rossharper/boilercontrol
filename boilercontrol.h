@@ -31,4 +31,4 @@ private:
     unsigned int nTransmitterPin;
 };
 
-#endif BOILERCONTROL_H_
+#endif /* BOILERCONTROL_H_ */
