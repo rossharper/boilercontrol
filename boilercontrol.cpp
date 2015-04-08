@@ -30,20 +30,22 @@ void BoilerControl::sendOffSignal() {
 void BoilerControl::sendPackets(const int packets[][nBitsPerPacket]) {
     int nPacket = 0;
 
-    digitalWrite(this->nTransmitterPin, LOW);
-    delayMicroseconds(nPreTxDelay - nNonRealtimeOffset);
+    pullPinLowForPeriodSync(nPreTxDelay);
     
     for(int nRepeats = 0; nRepeats < 4; nRepeats++) {
         this->sendPacket(packets[0]);
-        delayMicroseconds(DELAY[nPacket] - nNonRealtimeOffset);
+        delayForPeriod(DELAY[nPacket]);
         nPacket++;
         this->sendPacket(packets[1]);
-        delayMicroseconds(DELAY[nPacket] - nNonRealtimeOffset);
+        delayForPeriod(DELAY[nPacket]);
         nPacket++;
     }    
 
-    digitalWrite(this->nTransmitterPin, LOW);
-    delayMicroseconds(nPostTxDelay - nNonRealtimeOffset);
+    pullPinLowForPeriodSync(nPostTxDelay);
+}
+
+void BoilerControl::delayForPeriod(const unsigned int nDelayMicroseconds) {
+    delayMicroseconds(nDelayMicroseconds - nNonRealtimeOffset);
 }
 
 void BoilerControl::sendPacket(const int packet[]) {
@@ -58,12 +60,11 @@ void BoilerControl::sendPacket(const int packet[]) {
         }
     }
 
-    digitalWrite(this->nTransmitterPin, LOW);
+    setPinLevel(LOW);
 }
 
 void BoilerControl::sendTxStart() {
-    digitalWrite(this->nTransmitterPin, HIGH);
-    delayMicroseconds(nTxDelayLength);
+    pullPinHighForPeriodSync(nTxDelayLength);
 }
 
 void BoilerControl::enableTransmit() {
@@ -78,9 +79,24 @@ void BoilerControl::send0() {
     this->sendPulse(nShortPulseLength);
 }
 
-void BoilerControl::sendPulse(const unsigned int nPulseLength) {
-    digitalWrite(this->nTransmitterPin, LOW);
+void BoilerControl::setPinLevel(const int nLevel) {
+    digitalWrite(this->nTransmitterPin, nLevel);
+}
+
+void BoilerControl::pullPinToLevelForPeriodSync(const int nLevel, const unsigned int nPulseLength) {
+    setPinLevel(nLevel);
     delayMicroseconds(nPulseLength - nNonRealtimeOffset);
-    digitalWrite(this->nTransmitterPin, HIGH);
-    delayMicroseconds(nPauseLength - nNonRealtimeOffset);
+}
+
+void BoilerControl::pullPinLowForPeriodSync(const unsigned int nPulseLength) {
+    pullPinToLevelForPeriodSync(LOW, nPulseLength);
+}
+
+void BoilerControl::pullPinHighForPeriodSync(const unsigned int nPulseLength) {
+    pullPinToLevelForPeriodSync(HIGH, nPulseLength);
+}
+
+void BoilerControl::sendPulse(const unsigned int nPulseLength) {
+    pullPinLowForPeriodSync(nPulseLength);
+    pullPinHighForPeriodSync(nPauseLength);
 }
