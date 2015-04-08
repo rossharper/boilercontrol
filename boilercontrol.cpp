@@ -1,6 +1,6 @@
 #include "boilercontrol.h"
 
-#include "RaspberryPiTransmitPin.h"
+#include "TransmitPin.h"
 
 static const unsigned int nLongPulseLength = 953;
 static const unsigned int nShortPulseLength = 365;
@@ -9,12 +9,18 @@ static const unsigned int nTxDelayLength = 4530;
 static const unsigned int nPreTxDelay = 27810;
 static const unsigned int nPostTxDelay = nPreTxDelay;
 
-static const int ON_PACKETS[][nBitsPerPacket] = {{1,0,0,0,0,1,0,0,0,1,0,1,1,1,1,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1}, {1,1,1,1,1,0,1,1,1,0,1,0,0,0,0,1,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,0}};
-static const int OFF_PACKETS[][nBitsPerPacket] = {{1,0,0,0,0,1,0,0,0,1,0,1,1,1,1,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0}, {1,1,1,1,1,0,1,1,1,0,1,0,0,0,0,1,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1}};
+static const int ON_PACKETS[][nBitsPerPacket] = {
+    {1,0,0,0,0,1,0,0,0,1,0,1,1,1,1,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1},
+    {1,1,1,1,1,0,1,1,1,0,1,0,0,0,0,1,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,0}
+};
+static const int OFF_PACKETS[][nBitsPerPacket] = {
+    {1,0,0,0,0,1,0,0,0,1,0,1,1,1,1,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0},
+    {1,1,1,1,1,0,1,1,1,0,1,0,0,0,0,1,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1}
+};
 static const int DELAY[] = {27810, 18069, 17512, 4721, 22327, 18916, 25870, nPostTxDelay};
 
-BoilerControl::BoilerControl(int nTransmitterPin) {
-    this->transmitPin = new RaspberryPiTransmitPin(nTransmitterPin);
+BoilerControl::BoilerControl(TransmitPin *transmitPin) {
+    this->transmitPin = transmitPin;
 }
 
 BoilerControl::~BoilerControl() {

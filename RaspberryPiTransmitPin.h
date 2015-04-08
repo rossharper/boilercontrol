@@ -12,20 +12,20 @@
 
 class RaspberryPiTransmitPin : public TransmitPin {
 public:
-	RaspberryPiTransmitPin(const unsigned int nTransmitPin);
+	RaspberryPiTransmitPin(const int nTransmitPin);
 	virtual ~RaspberryPiTransmitPin();
 
+    int initialize();
     void pullPinLowForPeriodSync(const unsigned int nPulseLength);
     void pullPinHighForPeriodSync(const unsigned int nPulseLength);
 
 private:
     void enableTransmit();
-    void delayForPeriod(const unsigned int nDelayMicroseconds);
     void setPinLevel(const int nLevel);
     void pullPinToLevelForPeriodSync(const int nLevel, const unsigned int nPulseLength);
 
 private:
-    unsigned int nTransmitterPin;
+    int nTransmitterPin;
 };
 
 #endif /* RASPBERRYPITRANSMITPIN_H_ */

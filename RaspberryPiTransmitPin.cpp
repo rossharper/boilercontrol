@@ -11,21 +11,21 @@
 
 static const unsigned int nNonRealtimeOffset = 90;
 
-RaspberryPiTransmitPin::RaspberryPiTransmitPin(const unsigned int nTransmitPin) {
+RaspberryPiTransmitPin::RaspberryPiTransmitPin(const int nTransmitPin) {
 	this->nTransmitterPin = nTransmitterPin;
-
+    this->enableTransmit();
 }
 
 RaspberryPiTransmitPin::~RaspberryPiTransmitPin() {
 
 }
 
-void RaspberryPiTransmitPin::enableTransmit() {
-    pinMode(this->nTransmitterPin, OUTPUT);
+int RaspberryPiTransmitPin::initialize() {
+    return (wiringPiSetup() != 1);
 }
 
-void RaspberryPiTransmitPin::delayForPeriod(const unsigned int nDelayMicroseconds) {
-    delayMicroseconds(nDelayMicroseconds - nNonRealtimeOffset);
+void RaspberryPiTransmitPin::enableTransmit() {
+    pinMode(this->nTransmitterPin, OUTPUT);
 }
 
 void RaspberryPiTransmitPin::setPinLevel(const int nLevel) {

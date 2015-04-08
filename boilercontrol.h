@@ -8,7 +8,7 @@ class TransmitPin;
 class BoilerControl {
 
 public: 
-    BoilerControl(int nTransmitterPin);
+    BoilerControl(TransmitPin *transmitPin);
     virtual ~BoilerControl();
 
     void sendOnSignal();
