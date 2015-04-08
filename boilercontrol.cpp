@@ -33,11 +33,9 @@ void BoilerControl::sendPackets(const int packets[][nBitsPerPacket]) {
     pullPinLowForPeriodSync(nPreTxDelay);
     
     for(int nRepeats = 0; nRepeats < 4; nRepeats++) {
-        this->sendPacket(packets[0]);
-        delayForPeriod(DELAY[nPacket]);
+        this->sendPacket(packets[0], DELAY[nPacket]);
         nPacket++;
-        this->sendPacket(packets[1]);
-        delayForPeriod(DELAY[nPacket]);
+        this->sendPacket(packets[1], DELAY[nPacket]);
         nPacket++;
     }    
 
@@ -48,7 +46,7 @@ void BoilerControl::delayForPeriod(const unsigned int nDelayMicroseconds) {
     delayMicroseconds(nDelayMicroseconds - nNonRealtimeOffset);
 }
 
-void BoilerControl::sendPacket(const int packet[]) {
+void BoilerControl::sendPacket(const int packet[], const unsigned int nPostPacketDelay) {
     this->sendTxStart();
 
     for(int bit = 0; bit < nBitsPerPacket; bit++) {
@@ -60,7 +58,7 @@ void BoilerControl::sendPacket(const int packet[]) {
         }
     }
 
-    setPinLevel(LOW);
+    pullPinLowForPeriodSync(nPostPacketDelay);
 }
 
 void BoilerControl::sendTxStart() {

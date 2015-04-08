@@ -1,3 +1,6 @@
+#ifndef BOILERCONTROL_H_
+#define BOILERCONTROL_H_
+
 #include <wiringPi.h>
 
 static const unsigned int nBitsPerPacket = 33;
@@ -13,7 +16,7 @@ public:
 private:
     void enableTransmit();
     void sendPackets(const int packets[][nBitsPerPacket]);
-    void sendPacket(const int packet[]);
+    void sendPacket(const int packet[], const unsigned int nPostPacketDelay);
     void sendTxStart();
     void send1();
     void send0();
@@ -27,3 +30,5 @@ private:
 private:
     unsigned int nTransmitterPin;
 };
+
+#endif BOILERCONTROL_H_
