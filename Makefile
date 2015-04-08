@@ -1,6 +1,6 @@
 all: callforheat
 
-callforheat: boilercontrol.o callforheat.o
+callforheat: RaspberryPiTransmitPin.o boilercontrol.o callforheat.o
 	$(CXX) $(CXXFLAGS) $(LDFLAGS) $+ -o $@ -lwiringPi
 
 clean: 
