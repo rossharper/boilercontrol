@@ -2,14 +2,15 @@
 #include <stdlib.h>
 #include "boilercontrol.h"
 #include "RaspberryPiTransmitPin.h"
+#include "TransmitPinFactory.h"
 
 int main(int argc, char *argv[]) {
     int PIN = 0;
 
     int callforheat = atoi(argv[1]);
 
-    RaspberryPiTransmitPin* transmitPin = new RaspberryPiTransmitPin(PIN);
-    if(transmitPin->initialize() == 0) return 1;
+    TransmitPin* transmitPin = TransmitPinFactory::create(PIN);
+    if(!transmitPin) return 1;
 
     BoilerControl* boilerControl = new BoilerControl(transmitPin);
 
