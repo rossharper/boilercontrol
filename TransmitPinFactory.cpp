@@ -3,6 +3,8 @@
 //
 
 #include "TransmitPinFactory.h"
+
+#ifdef RASPBERRY_PI
 #include "RaspberryPiTransmitPin.h"
 
 TransmitPin* TransmitPinFactory::create(int nTransmitPin) {
@@ -15,3 +17,12 @@ TransmitPin* TransmitPinFactory::create(int nTransmitPin) {
 
     return transmitPin;
 }
+#else
+
+#include "StubTransmitPin.h"
+
+TransmitPin* TransmitPinFactory::create(int /*nTransmitPin*/) {
+    return new StubTransmitPin();
+}
+
+#endif
