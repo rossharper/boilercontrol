@@ -1,6 +1,8 @@
-all: callforheat
+LIBRARY=libboilerControl.a
 
-objects = TransmitPinFactory.o boilercontrol.o callforheat.o
+all: callforheat $(LIBRARY)
+
+objects = TransmitPinFactory.o boilercontrol.o
 
 ifeq ($(PLATFORM),pi)
 	objects += RaspberryPiTransmitPin.o
@@ -10,8 +12,12 @@ else
 	objects += StubTransmitPin.o
 endif
 
-callforheat: $(objects)
+$(LIBRARY): $(objects)
+	ar rcs $(LIBRARY) $(objects)
+	ranlib $(LIBRARY)
+
+callforheat: $(objects) callforheat.o
 	$(CXX) $(CXXFLAGS) $(LDFLAGS) $+ -o $@ $(LDLIBS)
 
 clean: 
-	$(RM) *.o callforheat
+	$(RM) *.o callforheat $(LIBRARY)
