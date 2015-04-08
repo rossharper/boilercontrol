@@ -9,6 +9,7 @@ class BoilerControl {
 
 public: 
     BoilerControl(int nTransmitterPin);
+    virtual ~BoilerControl();
 
     void sendOnSignal();
     void sendOffSignal();

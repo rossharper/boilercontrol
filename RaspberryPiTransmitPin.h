@@ -10,7 +10,7 @@
 
 #include "TransmitPin.h"
 
-class RaspberryPiTransmitPin : TransmitPin {
+class RaspberryPiTransmitPin : public TransmitPin {
 public:
 	RaspberryPiTransmitPin(const unsigned int nTransmitPin);
 	virtual ~RaspberryPiTransmitPin();
