@@ -1,6 +1,7 @@
 STATIC_LIBRARY=libboilerControl.a
 DYNAMIC_LIBRARY=libboilerControl.so
 INSTALLDIR=/usr/local/lib/
+EXECINSTALLDIR=/usr/local/bin/
 HEADERSINSTALLDIR=/usr/local/lib/libboilerControl
 EXPORTHEADERS=TransmitPinFactory.h boilercontrol.h
 
@@ -31,11 +32,13 @@ install:
 	cp -p $(DYNAMIC_LIBRARY) $(INSTALLDIR)
 	mkdir -p $(HEADERSINSTALLDIR)
 	cp -p $(EXPORTHEADERS) $(HEADERSINSTALLDIR)
+	cp -p callforheat $(EXECINSTALLDIR)
 
 uninstall:
 	rm -rf $(HEADERSINSTALLDIR)
 	rm $(INSTALLDIR)$(STATIC_LIBRARY)
 	rm $(INSTALLDIR)$(DYNAMIC_LIBRARY)
+	rm $(EXECINSTALLDIR)callforheat
 
 clean: 
 	$(RM) *.o callforheat $(STATIC_LIBRARY)
