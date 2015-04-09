@@ -29,7 +29,7 @@ callforheat: $(objects) callforheat.o
 install:
 	cp -p $(STATIC_LIBRARY) $(INSTALLDIR)
 	cp -p $(DYNAMIC_LIBRARY) $(INSTALLDIR)
-	mkdir $(HEADERSINSTALLDIR)
+	mkdir -p $(HEADERSINSTALLDIR)
 	cp -p $(EXPORTHEADERS) $(HEADERSINSTALLDIR)
 
 uninstall:
