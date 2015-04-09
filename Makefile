@@ -1,4 +1,5 @@
 LIBRARY=libboilerControl.a
+INSTALLDIR=/usr/local/lib/
 
 all: callforheat $(LIBRARY)
 
@@ -18,6 +19,9 @@ $(LIBRARY): $(objects)
 
 callforheat: $(objects) callforheat.o
 	$(CXX) $(CXXFLAGS) $(LDFLAGS) $+ -o $@ $(LDLIBS)
+
+install:
+	cp -p $(LIBRARY) $(INSTALLDIR)
 
 clean: 
 	$(RM) *.o callforheat $(LIBRARY)
