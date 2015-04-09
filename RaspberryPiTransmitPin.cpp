@@ -7,12 +7,14 @@
 
 #include "RaspberryPiTransmitPin.h"
 
+#include <stdio.h>
 #include <wiringPi.h>
 
 static const unsigned int nNonRealtimeOffset = 90;
 
 RaspberryPiTransmitPin::RaspberryPiTransmitPin(const int nTransmitPin) {
-	this->nTransmitterPin = nTransmitterPin;
+	printf("RPi Transmit Pin: %d with offset: %d", nTransmitPin, nNonRealtimeOffset);
+    this->nTransmitterPin = nTransmitterPin;
     this->enableTransmit();
 }
 
