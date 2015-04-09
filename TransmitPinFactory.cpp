@@ -4,10 +4,14 @@
 
 #include "TransmitPinFactory.h"
 
+#include <stdio.h>
+
 #ifdef RASPBERRY_PI
 #include "RaspberryPiTransmitPin.h"
 
 TransmitPin* TransmitPinFactory::create(int nTransmitPin) {
+    printf("Constructing RaspberryPi TransmitPin\n");
+
     RaspberryPiTransmitPin* transmitPin = new RaspberryPiTransmitPin(nTransmitPin);
 
     if(transmitPin->initialize() == 0){
@@ -22,6 +26,7 @@ TransmitPin* TransmitPinFactory::create(int nTransmitPin) {
 #include "StubTransmitPin.h"
 
 TransmitPin* TransmitPinFactory::create(int /*nTransmitPin*/) {
+    printf("Constructing STUB TransmitPin\n");
     return new StubTransmitPin();
 }
 
