@@ -13,7 +13,7 @@
 static const unsigned int nNonRealtimeOffset = 90;
 
 RaspberryPiTransmitPin::RaspberryPiTransmitPin(const int nTransmitPin) {
-	printf("RPi Transmit Pin: %d with offset: %d", nTransmitPin, nNonRealtimeOffset);
+	printf("RPi Transmit Pin: %d with offset: %d\n", nTransmitPin, nNonRealtimeOffset);
     this->nTransmitterPin = nTransmitterPin;
     this->enableTransmit();
 }
