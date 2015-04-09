@@ -1,3 +1,5 @@
 *.o
 callforheat
 *.a
+*.so
+
