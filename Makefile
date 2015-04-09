@@ -1,5 +1,7 @@
 LIBRARY=libboilerControl.a
 INSTALLDIR=/usr/local/lib/
+HEADERSINSTALLDIR=/usr/local/lib/libboilerControl
+EXPORTHEADERS=TransmitPinFactory.h boilercontrol.h
 
 all: callforheat $(LIBRARY)
 
@@ -22,6 +24,8 @@ callforheat: $(objects) callforheat.o
 
 install:
 	cp -p $(LIBRARY) $(INSTALLDIR)
+	mkdir $(HEADERSINSTALLDIR)
+	cp -p $(EXPORTHEADERS) $(HEADERSINSTALLDIR)
 
 clean: 
 	$(RM) *.o callforheat $(LIBRARY)
