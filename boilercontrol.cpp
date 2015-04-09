@@ -2,6 +2,8 @@
 
 #include "TransmitPin.h"
 
+#include <stdio.h>
+
 static const unsigned int nLongPulseLength = 953;
 static const unsigned int nShortPulseLength = 365;
 static const unsigned int nPauseLength = 365;
@@ -28,10 +30,12 @@ BoilerControl::~BoilerControl() {
 }
 
 void BoilerControl::sendOnSignal() {
+    printf("send ON signal\n");
     this->sendPackets(ON_PACKETS);
 }
 
 void BoilerControl::sendOffSignal() {
+    printf("send OFF signal\n");
     this->sendPackets(OFF_PACKETS);
 }
 
