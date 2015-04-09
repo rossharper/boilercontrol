@@ -10,6 +10,7 @@ class TransmitPin;
 class TransmitPinFactory {
 public:
     static TransmitPin* create(int nTransmitPin);
+    static TransmitPin* create(int nTransmitPin, int nNonRealtimeOffset);
 };
 
 

@@ -10,11 +10,13 @@
 #include <stdio.h>
 #include <wiringPi.h>
 
-static const unsigned int nNonRealtimeOffset = 90;
+RaspberryPiTransmitPin::RaspberryPiTransmitPin(const int nTransmitPin) : RaspberryPiTransmitPin(nTransmitPin, nDefaultNonRealtimeOffset) {
+}
 
-RaspberryPiTransmitPin::RaspberryPiTransmitPin(const int nTransmitPin) {
+RaspberryPiTransmitPin::RaspberryPiTransmitPin(const int nTransmitPin, const int nNonRealtimeOffset) {
 	printf("RPi Transmit Pin: %d with offset: %d\n", nTransmitPin, nNonRealtimeOffset);
     this->nTransmitterPin = nTransmitterPin;
+    this->nNonRealtimeOffset = nNonRealtimeOffset;
     this->enableTransmit();
 }
 
@@ -36,7 +38,7 @@ void RaspberryPiTransmitPin::setPinLevel(const int nLevel) {
 
 void RaspberryPiTransmitPin::pullPinToLevelForPeriodSync(const int nLevel, const unsigned int nPulseLength) {
     setPinLevel(nLevel);
-    delayMicroseconds(nPulseLength - nNonRealtimeOffset);
+    delayMicroseconds(nPulseLength - this->nNonRealtimeOffset);
 }
 
 void RaspberryPiTransmitPin::pullPinLowForPeriodSync(const unsigned int nPulseLength) {
