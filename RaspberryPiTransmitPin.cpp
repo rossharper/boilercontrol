@@ -10,14 +10,19 @@
 #include <stdio.h>
 #include <wiringPi.h>
 
-RaspberryPiTransmitPin::RaspberryPiTransmitPin(const int nTransmitPin) : RaspberryPiTransmitPin(nTransmitPin, nDefaultNonRealtimeOffset) {
+RaspberryPiTransmitPin::RaspberryPiTransmitPin(const int nTransmitPin, const int nNonRealtimeOffset) {
+    this->init(nTransmitPin, nNonRealtimeOffset);
 }
 
-RaspberryPiTransmitPin::RaspberryPiTransmitPin(const int nTransmitPin, const int nNonRealtimeOffset) {
-	printf("RPi Transmit Pin: %d with offset: %d\n", nTransmitPin, nNonRealtimeOffset);
+RaspberryPiTransmitPin::RaspberryPiTransmitPin(const int nTransmitPin) {
+    this->init(nTransmitPin, nDefaultNonRealtimeOffset);
+}
+
+void RaspberryPiTransmitPin::init(const int nTransmitPin, const int nNonRealtimeOffset) {
+    printf("RPi Transmit Pin: %d with offset: %d\n", nTransmitPin, nNonRealtimeOffset);
     this->nTransmitterPin = nTransmitterPin;
     this->nNonRealtimeOffset = nNonRealtimeOffset;
-    this->enableTransmit();
+    this->enableTransmit(); 
 }
 
 RaspberryPiTransmitPin::~RaspberryPiTransmitPin() {
