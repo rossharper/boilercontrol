@@ -32,6 +32,8 @@ install:
 	cp -p $(DYNAMIC_LIBRARY) $(INSTALLDIR)
 	mkdir -p $(HEADERSINSTALLDIR)
 	cp -p $(EXPORTHEADERS) $(HEADERSINSTALLDIR)
+	chown root callforheat
+	chmod 4755 callforheat
 	cp -p callforheat $(EXECINSTALLDIR)
 
 uninstall:
