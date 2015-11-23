@@ -12,7 +12,7 @@ Currently configured to use WiringPi PIN 0 (GPIO 17) to transmit on (should be c
 
 To call for heat (turn boiler ON):
 
-    sudo ./callforheat 1 
+    sudo ./callforheat 1
 
 To cancel call for heat (turn boiler OFF):
 
@@ -27,7 +27,13 @@ To cancel call for heat (turn boiler OFF):
 To build a version with the transmit pin control stubbed:
 
     make
-    
+
 To build for the Raspberry PI:
 
     make PLATFORM=pi
+
+## More Information
+
+A blog post I made in response to a question about this project:
+
+http://rossharper.net/2015/11/decoding-a-siemens-rcr10433-thermostat-signal-to-control-a-boiler-from-a-raspberry-pi/
