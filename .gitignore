@@ -5,3 +5,6 @@ callforheat
 
 .idea
 .project
+.DS_Store
+.cproject
+CMakeLists.txt
