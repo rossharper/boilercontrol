@@ -8,19 +8,26 @@ This is a (little bit hacky) utility for sending "call for heat" ON and OFF mess
 
 Currently configured to use WiringPi PIN 0 (GPIO 17) to transmit on (should be connected to DATA pin of a 433Mhz transmitter).
 
+NOTE: the install script will setup an init script (debian-compatible) that exports GPIO 17 with direction=out.
+
 ## Usage
 
 To call for heat (turn boiler ON):
 
-    sudo ./callforheat 1
+    callforheat 1
 
 To cancel call for heat (turn boiler OFF):
 
-    sudo ./callforheat 0
+    callforheat 0
+
+NOTE: sudo is not needed if GPIO-Admin was used the export the pins and the current user is in the gpio group. Otherwise, sudo is needed when executing, to ensure that the pin is accessible.
 
 ## Dependencies
 
 [WiringPi](http://wiringpi.com/)
+
+Install depends on:
+[GPIO-Admin](https://github.com/quick2wire/quick2wire-gpio-admin)
 
 ## Build
 
@@ -31,6 +38,14 @@ To build a version with the transmit pin control stubbed:
 To build for the Raspberry PI:
 
     make PLATFORM=pi
+
+To install on the Raspberry PI:
+
+    make install PLATFORM=pi
+
+To uninstall
+
+    make uninstall PLATFORM=pi
 
 ## More Information
 
