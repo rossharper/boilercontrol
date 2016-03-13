@@ -45,6 +45,9 @@ uninstall:
 	rm $(INSTALLDIR)$(STATIC_LIBRARY)
 	rm $(INSTALLDIR)$(DYNAMIC_LIBRARY)
 	rm $(EXECINSTALLDIR)callforheat
+ifeq ($(PLATFORM),pi)
+		sh unInstallStartupGpioConfig.sh
+endif
 
 clean:
 	$(RM) *.o callforheat $(STATIC_LIBRARY)
