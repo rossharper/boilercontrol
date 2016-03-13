@@ -22,7 +22,7 @@ $(STATIC_LIBRARY): $(objects)
 	ranlib $(STATIC_LIBRARY)
 
 $(DYNAMIC_LIBRARY): $(objects)
-	$(CXX) $(CXXFLAGS) $(LDFLAGS) -shared $+ $(LDLIBS) -o $(DYNAMIC_LIBRARY) 
+	$(CXX) $(CXXFLAGS) $(LDFLAGS) -shared $+ $(LDLIBS) -o $(DYNAMIC_LIBRARY)
 
 callforheat: $(objects) callforheat.o
 	$(CXX) $(CXXFLAGS) $(LDFLAGS) $+ -o $@ $(LDLIBS)
@@ -35,6 +35,10 @@ install:
 	chown root callforheat
 	chmod 4755 callforheat
 	cp -p callforheat $(EXECINSTALLDIR)
+ifeq ($(PLATFORM),pi)
+	chmod 4755 gpio-init.sh
+	sh installStartupGpioConfig.sh
+endif
 
 uninstall:
 	rm -rf $(HEADERSINSTALLDIR)
@@ -42,5 +46,5 @@ uninstall:
 	rm $(INSTALLDIR)$(DYNAMIC_LIBRARY)
 	rm $(EXECINSTALLDIR)callforheat
 
-clean: 
+clean:
 	$(RM) *.o callforheat $(STATIC_LIBRARY)

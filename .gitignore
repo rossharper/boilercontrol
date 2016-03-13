@@ -3,3 +3,5 @@ callforheat
 *.a
 *.so
 
+.idea
+.project
