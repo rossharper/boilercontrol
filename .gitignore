@@ -3,6 +3,8 @@ callforheat
 *.a
 *.so
 
+cmake-build-debug
+
 .idea
 .project
 .DS_Store
