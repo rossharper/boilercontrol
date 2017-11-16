@@ -125,7 +125,7 @@ void BoilerControl::sendPacketPreamble(Bit preambleBit, const unsigned int nPrea
 
 void BoilerControl::sendBit(Bit bit) {
     this->transmitPin->pullPinHighForPeriodSync(bit.highLengthMicros);
-    this->transmitPin->pullPinHighForPeriodSync(bit.lowLengthMicros);
+    this->transmitPin->pullPinLowForPeriodSync(bit.lowLengthMicros);
 }
 
 //void BoilerControl::sendTxStart() {
