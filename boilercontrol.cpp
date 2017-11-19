@@ -91,6 +91,13 @@ void BoilerControl::sendPackets(Packet packet, const unsigned int nRepeats, cons
         this->sendPacket(packet);
         this->sendPostPacketDelay(postPacketDelayMillis);
     }
+
+    this->sendPostPacketDelay(300);
+
+    for(int i = 0; i < nRepeats; i++) {
+        this->sendPacket(packet);
+        this->sendPostPacketDelay(postPacketDelayMillis);
+    }
 }
 
 void BoilerControl::sendPacket(Packet packet) {
