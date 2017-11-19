@@ -60,7 +60,8 @@ ControlPackets createControlPackets() {
     ControlPackets cp = {
         2,
         onPacket,
-        offPacket
+        offPacket,
+        260
     };
 
     return cp;
@@ -77,17 +78,18 @@ BoilerControl::~BoilerControl() {
 
 void BoilerControl::sendOnSignal() {
     printf("send ON signal\n");
-    this->sendPackets(controlPackets.onPacket, controlPackets.nPacketRepeats);
+    this->sendPackets(controlPackets.onPacket, controlPackets.nPacketRepeats, controlPackets.postPacketDelay);
 }
 
 void BoilerControl::sendOffSignal() {
     printf("send OFF signal\n");
-    this->sendPackets(controlPackets.offPacket, controlPackets.nPacketRepeats);
+    this->sendPackets(controlPackets.offPacket, controlPackets.nPacketRepeats, controlPackets.postPacketDelay);
 }
 
-void BoilerControl::sendPackets(Packet packet, const unsigned int nRepeats) {
+void BoilerControl::sendPackets(Packet packet, const unsigned int nRepeats, const unsigned int postPacketDelayMillis) {
     for(int i = 0; i < nRepeats; i++) {
         this->sendPacket(packet);
+        this->sendPostPacketDelay(postPacketDelayMillis);
     }
 }
 
@@ -126,6 +128,10 @@ void BoilerControl::sendPacketPreamble(Bit preambleBit, const unsigned int nPrea
 void BoilerControl::sendBit(Bit bit) {
     this->transmitPin->pullPinHighForPeriodSync(bit.highLengthMicros);
     this->transmitPin->pullPinLowForPeriodSync(bit.lowLengthMicros);
+}
+
+void BoilerControl::sendPostPacketDelay(const unsigned postPacketDelayMillis) {
+    this->transmitPin->pullPinLowForPeriodSync(postPacketDelayMillis);
 }
 
 //void BoilerControl::sendTxStart() {
