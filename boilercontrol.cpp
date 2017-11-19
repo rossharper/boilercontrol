@@ -25,20 +25,18 @@
 
 ControlPackets createControlPackets() {
     Bit preambleBit = {
-        1063,
-        922
+        1011,
+        974
     };
-    preambleBit.highLengthMicros = 1063;
-    preambleBit.lowLengthMicros = 922;
 
     Bit longBit = {
-        557,
-        193
+        505,
+        245
     };
 
     Bit shortBit = {
-        307,
-        438
+        255,
+        490
     };
 
     Packet onPacket = {
