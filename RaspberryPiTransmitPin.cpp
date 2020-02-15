@@ -7,6 +7,8 @@
 
 #include "RaspberryPiTransmitPin.h"
 
+#include "Constants.h"
+
 #include <stdio.h>
 #include <wiringPi.h>
 

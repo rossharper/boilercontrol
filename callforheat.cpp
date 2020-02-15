@@ -3,13 +3,19 @@
 #include "boilercontrol.h"
 #include "RaspberryPiTransmitPin.h"
 #include "TransmitPinFactory.h"
+#include "Constants.h"
 
 int main(int argc, char *argv[]) {
     int PIN = 0;
 
     int callforheat = atoi(argv[1]);
 
-    TransmitPin* transmitPin = TransmitPinFactory::create(PIN);
+    int realtimeOffset = nDefaultNonRealtimeOffset;
+    if(argc > 2) {
+        realtimeOffset = atoi(argv[2]);
+    }
+
+    TransmitPin* transmitPin = TransmitPinFactory::create(PIN, realtimeOffset);
     if(!transmitPin) return 1;
 
     BoilerControl* boilerControl = new BoilerControl(transmitPin);

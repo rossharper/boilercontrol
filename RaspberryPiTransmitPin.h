@@ -10,8 +10,6 @@
 
 #include "TransmitPin.h"
 
-static const unsigned int nDefaultNonRealtimeOffset = 90;
-
 class RaspberryPiTransmitPin : public TransmitPin {
 public:
     RaspberryPiTransmitPin(const int nTransmitPin);
