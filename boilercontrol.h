@@ -5,6 +5,27 @@ static const unsigned int nBitsPerPacket = 33;
 
 class TransmitPin;
 
+struct Bit {
+    unsigned int highLengthMicros;
+    unsigned int lowLengthMicros;
+};
+
+struct Packet {
+    Bit preambleBit;
+    unsigned int nPreambleBits;
+
+    Bit onBit;
+    Bit offBit;
+    unsigned int dataBits[25];
+};
+
+struct ControlPackets {
+    unsigned int nPacketRepeats;
+    Packet onPacket;
+    Packet offPacket;
+    unsigned int postPacketDelay;
+};
+
 class BoilerControl {
 
 public: 
@@ -15,14 +36,20 @@ public:
     void sendOffSignal();
 
 private:
-    void sendPackets(const int packets[][nBitsPerPacket]);
-    void sendPacket(const int packet[], const unsigned int nPostPacketDelay);
-    void sendTxStart();
-    void send1();
-    void send0();
-    void sendPulse(const unsigned int nPulselength);
+//    void sendPackets(const int packets[][nBitsPerPacket]);
+//    void sendPacket(const int packet[], const unsigned int nPostPacketDelay);
+//    void sendTxStart();
+//    void send1();
+//    void send0();
+//    void sendPulse(const unsigned int nPulselength);
+    void sendPackets(Packet packet, unsigned int nRepeats, unsigned int postPacketDelayMillis);
+    void sendPacket(Packet packet);
+    void sendPacketPreamble(Bit preambleBit, unsigned int nPreambleBits);
+    void sendBit(Bit bit);
+    void sendPostPacketDelay(const unsigned postPacketDelayMillis);
 
 private:
+    ControlPackets controlPackets;
     TransmitPin* transmitPin;
 };
 
