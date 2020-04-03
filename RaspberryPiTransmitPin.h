@@ -16,7 +16,6 @@ public:
 	RaspberryPiTransmitPin(const int nTransmitPin, const int nNonRealtimeOffset);
 	virtual ~RaspberryPiTransmitPin();
 
-    int initialize();
     void pullPinLowForPeriodSync(const unsigned int nPulseLength);
     void pullPinHighForPeriodSync(const unsigned int nPulseLength);
 

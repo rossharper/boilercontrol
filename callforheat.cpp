@@ -6,7 +6,7 @@
 #include "Constants.h"
 
 int main(int argc, char *argv[]) {
-    int PIN = 0;
+    int PIN = 17;
 
     int callforheat = atoi(argv[1]);
 
