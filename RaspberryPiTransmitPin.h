@@ -21,7 +21,6 @@ public:
 
 private:
     void init(const int nTransmitPin, const int nNonRealtimeOffset);
-    void enableTransmit();
     void setPinLevel(const int nLevel);
     void pullPinToLevelForPeriodSync(const int nLevel, const unsigned int nPulseLength);
 

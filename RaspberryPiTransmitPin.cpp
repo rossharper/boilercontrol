@@ -25,15 +25,9 @@ void RaspberryPiTransmitPin::init(const int nTransmitPin, const int nNonRealtime
     wiringPiSetupSys();
     this->nTransmitterPin = nTransmitterPin;
     this->nNonRealtimeOffset = nNonRealtimeOffset;
-    this->enableTransmit(); 
 }
 
 RaspberryPiTransmitPin::~RaspberryPiTransmitPin() {
-
-}
-
-void RaspberryPiTransmitPin::enableTransmit() {
-    pinMode(this->nTransmitterPin, OUTPUT);
 }
 
 void RaspberryPiTransmitPin::setPinLevel(const int nLevel) {
