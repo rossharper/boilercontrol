@@ -23,7 +23,7 @@ RaspberryPiTransmitPin::RaspberryPiTransmitPin(const int nTransmitPin) {
 void RaspberryPiTransmitPin::init(const int nTransmitPin, const int nNonRealtimeOffset) {
     printf("RPi Transmit Pin: %d with offset: %d\n", nTransmitPin, nNonRealtimeOffset);
     wiringPiSetupSys();
-    this->nTransmitterPin = nTransmitterPin;
+    this->nTransmitterPin = nTransmitPin;
     this->nNonRealtimeOffset = nNonRealtimeOffset;
 }
 
