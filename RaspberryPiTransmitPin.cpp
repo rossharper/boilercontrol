@@ -44,8 +44,10 @@ void RaspberryPiTransmitPin::setPinLevel(const int nLevel) {
 }
 
 void RaspberryPiTransmitPin::pullPinToLevelForPeriodSync(const int nLevel, const unsigned int nPulseLength) {
-    setPinLevel(nLevel);
-    delayMicroseconds(nPulseLength - this->nNonRealtimeOffset);
+    if(nPulseLength > 0) {
+        setPinLevel(nLevel);
+        delayMicroseconds(nPulseLength - this->nNonRealtimeOffset);
+    }
 }
 
 void RaspberryPiTransmitPin::pullPinLowForPeriodSync(const unsigned int nPulseLength) {
