@@ -5,6 +5,7 @@
 #include "TransmitPinFactory.h"
 
 #include <stdio.h>
+#include "Constants.h"
 
 #ifdef RASPBERRY_PI
 #include "RaspberryPiTransmitPin.h"
