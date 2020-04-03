@@ -1,5 +1,5 @@
 /*
- * RaspberryPiPin.h
+ * RaspberryPiTransmitPin.h
  *
  *  Created on: 8 Apr 2015
  *      Author: ross
