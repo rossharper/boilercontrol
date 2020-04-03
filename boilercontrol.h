@@ -36,12 +36,6 @@ public:
     void sendOffSignal();
 
 private:
-//    void sendPackets(const int packets[][nBitsPerPacket]);
-//    void sendPacket(const int packet[], const unsigned int nPostPacketDelay);
-//    void sendTxStart();
-//    void send1();
-//    void send0();
-//    void sendPulse(const unsigned int nPulselength);
     void sendPackets(Packet packet, unsigned int nRepeats, unsigned int postPacketDelayMillis);
     void sendPacket(Packet packet);
     void sendPacketPreamble(Bit preambleBit, unsigned int nPreambleBits);
