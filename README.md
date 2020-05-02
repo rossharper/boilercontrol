@@ -2,11 +2,15 @@
 
 ## Overview
 
-This is a (little bit hacky) utility for sending "call for heat" ON and OFF messages to my Siemens RCR10/433 receiver boiler control relay.
+This is a (little bit hacky) utility for sending "call for heat" ON and OFF messages to my Siemens RCR10/433 receiver boiler control relay. (Note: the codes have since been updated to a generic 433MHz thermostat)
 
 *NOTE*: The ON and OFF packets herein are specific to my receiver: they probably contain some ID that was exchanged during the "learn" mode pairing between receiver and thermostat.
 
-Currently configured to use WiringPi PIN 0 (GPIO 17) to transmit on (should be connected to DATA pin of a 433Mhz transmitter).
+Currently configured to use WiringPi PIN 0 (GPIO 17) to transmit on (should be connected to DATA pin of a 433Mhz transmitter). GPIO pin 17 should be configured for export with `gpio` which will make changes to ```/sys/class/gpio```.
+
+```
+gpio export 17 out
+```
 
 NOTE: the install script will setup an init script (debian-compatible) that exports GPIO 17 with direction=out.
 
@@ -26,8 +30,7 @@ NOTE: sudo is not needed if GPIO-Admin was used the export the pins and the curr
 
 [WiringPi](http://wiringpi.com/)
 
-Install depends on:
-[GPIO-Admin](https://github.com/quick2wire/quick2wire-gpio-admin)
+```sudo apt-get install wiringpi```
 
 ## Build
 
