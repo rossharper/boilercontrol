@@ -28,15 +28,15 @@ callforheat: $(objects) callforheat.o
 	$(CXX) $(CXXFLAGS) $(LDFLAGS) $+ -o $@ $(LDLIBS)
 
 install:
-	cp -p $(STATIC_LIBRARY) $(INSTALLDIR)
-	cp -p $(DYNAMIC_LIBRARY) $(INSTALLDIR)
-	mkdir -p $(HEADERSINSTALLDIR)
-	cp -p $(EXPORTHEADERS) $(HEADERSINSTALLDIR)
-	chown root callforheat
-	chmod 4755 callforheat
-	cp -p callforheat $(EXECINSTALLDIR)
+	sudo cp -p $(STATIC_LIBRARY) $(INSTALLDIR)
+	sudo cp -p $(DYNAMIC_LIBRARY) $(INSTALLDIR)
+	sudo mkdir -p $(HEADERSINSTALLDIR)
+	sudo cp -p $(EXPORTHEADERS) $(HEADERSINSTALLDIR)
+	chmod a+x callforheat
+	sudo cp -p callforheat $(EXECINSTALLDIR)
 ifeq ($(PLATFORM),pi)
-	chmod 4755 gpio-init.sh
+	chmod a+x gpio-init.sh
+	sh gpio-init.sh
 	sh installStartupGpioConfig.sh
 endif
 
