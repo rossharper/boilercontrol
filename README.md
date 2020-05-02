@@ -16,6 +16,14 @@ NOTE: the install script will setup an init script (debian-compatible) that expo
 
 ## Usage
 
+```
+    callforheat 0 [offset] // Call for heat OFF
+    callforheat 1 [offset] // Call for heat ON
+
+    [offset] Microseconds to reduce pulse lengths by. Default: 90
+             also set via CALLFORHEAT_OFFSET environment variable.
+```
+
 To call for heat (turn boiler ON):
 
     callforheat 1
@@ -24,7 +32,12 @@ To cancel call for heat (turn boiler OFF):
 
     callforheat 0
 
-NOTE: sudo is not needed if GPIO-Admin was used the export the pins and the current user is in the gpio group. Otherwise, sudo is needed when executing, to ensure that the pin is accessible.
+To call for heat with realtime offset increased to 100us:
+
+    callforheat 1 100
+```
+
+```
 
 ## Dependencies
 
