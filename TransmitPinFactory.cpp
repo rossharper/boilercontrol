@@ -18,12 +18,6 @@ TransmitPin* TransmitPinFactory::create(int nTransmitPin, int nNonRealtimeOffset
     printf("Constructing RaspberryPi TransmitPin\n");
 
     RaspberryPiTransmitPin* transmitPin = new RaspberryPiTransmitPin(nTransmitPin, nNonRealtimeOffset);
-
-    if(transmitPin->initialize() == 0){
-        delete transmitPin;
-        transmitPin = 0;
-    }
-
     return transmitPin;
 }
 #else
